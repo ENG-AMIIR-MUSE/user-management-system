@@ -6,20 +6,33 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Add from './Components/Add.jsx'
 import { Toaster } from 'react-hot-toast'
 import Update from './Components/Update.jsx'
+import Home from './Components/Home.jsx'
+import Show from './Components/Show.jsx'
 
 const router  = createBrowserRouter([
   {
     path:'/',
-    element:<App/>
+    element:<App/>,
+    children:[
+      {
+        path:'/',
+        element:<Show/>
+      },
+      {
+        path:'/home',
+        element:<Home/>
+      },
+      {
+        path:'/add',
+        element:<Add/>
+      },
+      {
+        path:'/update/:id',
+        element:<Update/>
+      }
+    ]
   },
-  {
-    path:'/add',
-    element:<Add/>
-  },
-  {
-    path:'/update/:id',
-    element:<Update/>
-  }
+  
  
 ])
 

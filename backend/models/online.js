@@ -1,25 +1,29 @@
 const mongoose  = require('mongoose') // mongoose  is reponsible for modeling your database schema 
 // schema 
 
-const employeeSchema  = mongoose.Schema({
+const onlineSchema  = mongoose.Schema({
     name:{
         type:String,
         required:true,
         
     },
-    tell:{
-        type:Number,
+    email:{
+        type:String,
         required:true
     },
-    age:{
-        type:Number,
+    password:{
+        type:String,
+        required:true
+    },
+    message:{
+        type:String,
         required:true
     }
 },{
     timestamps:true
 })
 
-module.exports  = mongoose.model('Employee',employeeSchema)
+module.exports  = mongoose.model('online',onlineSchema)
 
 
 

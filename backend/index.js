@@ -1,5 +1,5 @@
 const express = require("express");
-const employeeModel = require("./models/employee-model");
+const onlineModel = require("./models/online");
 const mongoose = require("mongoose");
 
 // initialization
@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 app.use(express.json()); // it enables  the server to get the data as a json
 // set connection to the database
 
-mongoose.connect("mongodb://localhost:27017/employee")
+mongoose.connect("mongodb://localhost:27017/online")
   .then(() => {
     console.log("connected to the database");
   })
@@ -28,55 +28,67 @@ mongoose.connect("mongodb://localhost:27017/employee")
 
 // insert api
 
-app.post("/create", async (req, res) => {
+app.post("/api/create", async (req, res) => {
   try {
-    const newEmployee = await employeeModel(req.body);
-    await newEmployee.save();
-    if (!newEmployee) {
-      return res.status(404).json("Cant Create Emmployee...");
+    const newOnline = await onlineModel(req.body);
+    await newOnline.save();
+    if (!newOnline) {
+      return res.status(404).json("Cant Create Complainment...");
     }
-    return res.status(200).json("Employee Registered Successfully");
+    return res.status(200).json("Complainment Registered Successfully");
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 });
 
-app.get("/api/employees", async (req, res) => {
+app.get("/api/complainments", async (req, res) => {
     try {
-      const employees = await employeeModel.find()
+      const complainments = await onlineModel.find()
     
-      if (!employees) {
-        return res.status(404).json("Employeee Not Found ...");
+      if (!complainments) {
+        return res.status(404).json("complainments Not Found ...");
       }
-      return res.status(200).json(employees);
+      return res.status(200).json(complainments);
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
   });
-app.put("/update/:id", async (req, res) => {
+  app.get("/api/complainments/:id", async (req, res) => {
+    try {
+      const findComp = await onlineModel.findOne({_id:req.params.id})
+    
+      if (!findComp) {
+        return res.status(404).json("Employeee Not Found ...");
+      }
+      return res.status(200).json(findComp);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  });
+app.put("/api/update/:id", async (req, res) => {
   try {
-    const newEmployee = await employeeModel.findByIdAndUpdate(
+    const updateComp = await onlineModel.findByIdAndUpdate(
       { _id: req.params.id },
       req.body
     );
-    console.log(newEmployee);
-    if (!newEmployee) {
-      return res.status(404).json("Cant Update Emmployee...");
+    console.log(updateComp);
+    if (!updateComp) {
+      return res.status(404).json("Cant Update Complainmet...");
     }
-    return res.status(200).json("Employee Updated Successfully");
+    return res.status(200).json("Complainment Updated Successfully");
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 });
 
-app.delete("/delete/:id", async (req, res) => {
+app.delete("/api/delete/:id", async (req, res) => {
   try {
-    const deleteEmployee = await employeeModel.findByIdAndDelete(req.params.id);
-    console.log(deleteEmployee);
-    if (!deleteEmployee) {
-      return res.status(404).json("Cant Delete Emmployee...");
+    const deleteComp = await onlineModel.findByIdAndDelete(req.params.id);
+    console.log(deleteComp);
+    if (!deleteComp) {
+      return res.status(404).json("Cant Delete Complainment...");
     }
-    return res.status(200).json("Employee Deleted Successfully");
+    return res.status(200).json("Compainment Deleted Successfully");
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
