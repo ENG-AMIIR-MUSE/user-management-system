@@ -16,6 +16,7 @@ export default function Add() {
       "age":age,
       "tell":tell
     })
+    setLoading(false)
     console.log("data from the server...",data)
     toast.success('User Registered Successfully..')
     nav('/')

@@ -5,6 +5,7 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Add from './Components/Add.jsx'
 import { Toaster } from 'react-hot-toast'
+import Update from './Components/Update.jsx'
 
 const router  = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router  = createBrowserRouter([
   {
     path:'/add',
     element:<Add/>
+  },
+  {
+    path:'/update/:id',
+    element:<Update/>
   }
 ])
 
