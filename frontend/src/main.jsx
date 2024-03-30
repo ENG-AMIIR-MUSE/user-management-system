@@ -20,6 +20,7 @@ const router  = createBrowserRouter([
     path:'/update/:id',
     element:<Update/>
   }
+ 
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
